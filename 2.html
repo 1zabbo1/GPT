@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clicker Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        h1 {
+            font-size: 24px;
+        }
+        p {
+            font-size: 18px;
+        }
+        button {
+            background-color: #000000;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Clicker Game</h1>
+        <p>Clicks: <span id="clickCount">0</span></p>
+        <button onclick="incrementClicks()">Click me!</button>
+        <hr>
+        <h2>Upgrades</h2>
+        <p>Upgrade your click power:</p>
+        <button onclick="buyUpgrade()">Buy Upgrade</button>
+        <p>Upgrade Level: <span id="upgradeLevel">0</span></p>
+        <hr>
+        <h2>Achievements</h2>
+        <p>Unlock achievements:</p>
+        <ul id="achievements">
+            <li>Achievement 1</li>
+            <li>Achievement 2</li>
+        </ul>
+    </div>
+
+    <script>
+        let clickCount = 0;
+        let upgradeLevel = 0;
+        let achievements = [];
+
+        function incrementClicks() {
+            clickCount += 1 + upgradeLevel;
+            document.getElementById("clickCount").textContent = clickCount;
+
+            // Check for achievements
+            if (clickCount >= 10 && !achievements.includes("Achievement 1")) {
+                achievements.push("Achievement 1");
+                updateAchievements();
+            }
+            if (clickCount >= 50 && !achievements.includes("Achievement 2")) {
+                achievements.push("Achievement 2");
+                updateAchievements();
+            }
+        }
+
+        function buyUpgrade() {
+            const upgradeCost = 10 * (upgradeLevel + 1);
+            if (clickCount >= upgradeCost) {
+                clickCount -= upgradeCost;
+                upgradeLevel++;
+                document.getElementById("clickCount").textContent = clickCount;
+                document.getElementById("upgradeLevel").textContent = upgradeLevel;
+            }
+        }
+
+        function updateAchievements() {
+            const achievementsList = document.getElementById("achievements");
+            achievementsList.innerHTML = "";
+            for (const achievement of achievements) {
+                const li = document.createElement("li");
+                li.textContent = achievement;
+                achievementsList.appendChild(li);
+            }
+        }
+    </script>
+</body>
+</html>

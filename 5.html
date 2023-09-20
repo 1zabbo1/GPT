@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebP to JPG Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            font-size: 24px;
+        }
+        p {
+            font-size: 18px;
+            margin: 20px 0;
+        }
+        input[type="file"] {
+            display: none;
+        }
+        label {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        label:hover {
+            background-color: #2980b9;
+        }
+        img {
+            max-width: 100%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>WebP to JPG Converter</h1>
+        <p>Select a WebP image to convert to JPG:</p>
+        <label for="webpInput">Choose File</label>
+        <input type="file" id="webpInput" accept=".webp" onchange="convertWebpToJpg()">
+        <img id="outputImage" style="display: none;">
+    </div>
+
+    <script>
+        function convertWebpToJpg() {
+            const webpInput = document.getElementById("webpInput");
+            const outputImage = document.getElementById("outputImage");
+
+            if (webpInput.files.length > 0) {
+                const webpURL = URL.createObjectURL(webpInput.files[0]);
+                const img = new Image();
+
+                img.onload = function () {
+                    const canvas = document.createElement("canvas");
+                    const ctx = canvas.getContext("2d");
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.drawImage(img, 0, 0);
+
+                    // Convert to JPG by drawing the WebP image on a canvas and then converting the canvas to data URL
+                    const jpgDataURL = canvas.toDataURL("image/jpeg");
+                    outputImage.src = jpgDataURL;
+                    outputImage.style.display = "block";
+                };
+
+                img.src = webpURL;
+            }
+        }
+    </script>
+</body>
+</html>

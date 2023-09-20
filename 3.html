@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        h1 {
+            font-size: 24px;
+        }
+        p {
+            font-size: 18px;
+            margin: 20px 0;
+        }
+        .choices {
+            display: flex;
+            justify-content: space-between;
+        }
+        .choice {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #3498db;
+            border-radius: 5px;
+            margin: 0 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .choice:hover {
+            transform: scale(1.05);
+        }
+        #result {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Rock Paper Scissors</h1>
+        <p>Choose your move:</p>
+        <div class="choices">
+            <div class="choice" onclick="play('rock')">Rock</div>
+            <div class="choice" onclick="play('paper')">Paper</div>
+            <div class="choice" onclick="play('scissors')">Scissors</div>
+        </div>
+        <p id="result">Result: </p>
+    </div>
+
+    <script>
+        function play(playerChoice) {
+            const choices = ['rock', 'paper', 'scissors'];
+            const computerChoice = choices[Math.floor(Math.random() * 3)];
+
+            const result = getResult(playerChoice, computerChoice);
+
+            document.getElementById('result').textContent = `Result: ${result}`;
+        }
+
+        function getResult(player, computer) {
+            if (player === computer) {
+                return 'It\'s a tie!';
+            }
+            if ((player === 'rock' && computer === 'scissors') ||
+                (player === 'paper' && computer === 'rock') ||
+                (player === 'scissors' && computer === 'paper')) {
+                return 'You win!';
+            } else {
+                return 'Computer wins!';
+            }
+        }
+    </script>
+</body>
+</html>

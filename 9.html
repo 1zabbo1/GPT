@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nokia 3310 Store</title>
+    <style type="text/css">
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #007BFF;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+}
+
+header h1 {
+    margin: 0;
+}
+
+.product {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.product-image img {
+    max-width: 100%;
+    height: auto;
+    margin-right: 20px;
+}
+
+.product-details {
+    flex: 1;
+}
+
+.product h2 {
+    font-size: 24px;
+    color: #333;
+}
+
+.price {
+    font-size: 18px;
+    color: #007BFF;
+    margin: 10px 0;
+}
+
+.description {
+    font-size: 16px;
+    color: #777;
+}
+
+button#addToCart {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+button#addToCart:hover {
+    background-color: #0056b3;
+}
+
+.cart {
+    background-color: #fff;
+    margin: 20px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.cart h2 {
+    font-size: 24px;
+    color: #333;
+}
+
+ul#cartItems {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul#cartItems li {
+    margin-bottom: 10px;
+}
+
+button#checkout {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+button#checkout:hover {
+    background-color: #0056b3;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Nokia 3310</h1>
+        <p>The Legendary Mobile Phone</p>
+    </header>
+    <section class="product">
+        <div class="product-image">
+            <img src="nokia-3310.jpg" alt="Nokia 3310">
+        </div>
+        <div class="product-details">
+            <h2>Nokia 3310</h2>
+            <p class="price">$49.99</p>
+            <p class="description">The Nokia 3310 is back with a modern twist. Get ready for nostalgia and reliability in one!</p>
+            <button id="addToCart">Add to Cart</button>
+        </div>
+    </section>
+    <section class="cart">
+        <h2>Your Cart</h2>
+        <ul id="cartItems">
+            <!-- Cart items will be added here using JavaScript -->
+        </ul>
+        <p>Total: $<span id="cartTotal">0.00</span></p>
+        <button id="checkout">Checkout</button>
+    </section>
+    <script>
+        const addToCartButton = document.getElementById("addToCart");
+const cartItemsList = document.getElementById("cartItems");
+const cartTotalSpan = document.getElementById("cartTotal");
+
+let cart = [];
+let total = 0;
+
+addToCartButton.addEventListener("click", () => {
+    // Add the product to the cart
+    cart.push({ name: "Nokia 3310", price: 49.99 });
+
+    // Update the cart UI
+    renderCart();
+
+    // Calculate and update the total
+    total = cart.reduce((acc, item) => acc + item.price, 0);
+    cartTotalSpan.textContent = total.toFixed(2);
+});
+
+function renderCart() {
+    cartItemsList.innerHTML = "";
+    cart.forEach((item) => {
+        const listItem = document.createElement("li");
+        listItem.textContent = `${item.name} - $${item.price.toFixed(2)}`;
+        cartItemsList.appendChild(listItem);
+    });
+}
+
+    </script>
+</body>
+</html>
